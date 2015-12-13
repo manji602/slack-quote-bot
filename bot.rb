@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'json'
 require 'slack-ruby-bot'
-require 'google_drive'
 
 paths = %w(
   lib/*.rb
