@@ -22,6 +22,11 @@ module Bot
         send_message client, data.channel, "#{message}"
     end
 
+    match /\Agoroku help\z/ do |client, data, match|
+      text = "[usage]\n(語録|goroku) : 語録をランダムにpost\n(語録|goroku) (追加|add) [追加したいpostのURL] : 語録を追加"
+      client.message text: text, channel: data.channel
+    end
+
     match /(語録|goroku)\p{blank}(add|追加)\p{blank}(?<url>.*)/ do |client, data, match|
       url = match[:url]
       plain_url = url.match(/\A<(.*)>\z/)
