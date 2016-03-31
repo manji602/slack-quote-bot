@@ -38,6 +38,24 @@ module Bot
         send_message client, data.channel, "語録追加done"
       end
     end
+
+    match /(語録|goroku)\p{blank}(search|検索)\p{blank}(?<word>.*)/ do |client, data, match|
+      word = match[:word]
+
+      matched_words = SpreadsheetUtil.search(word)
+
+      if matched_words.size.zero?
+        message = "検索してもﾅｶｯﾀﾖ :metal:"
+        send_message client, data.channel, message
+      else
+        message = "検索結果 :point_down: ( #{matched_words.size} 件)\n"
+        matched_words.each do |matched_word|
+          message += "#{matched_word}\n"
+        end
+        send_message client, data.channel, message
+      end
+
+    end
   end
 end
 

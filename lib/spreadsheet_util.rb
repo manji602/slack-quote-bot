@@ -43,4 +43,17 @@ class SpreadsheetUtil
     ws[insert_row, 1] = message
     ws.save
   end
+
+  def self.search(word)
+    session = self.login
+    ws = session.spreadsheet_by_key(@config["spreadsheet_id"]).worksheets[0]
+
+    matched_words = []
+    [*1..ws.num_rows].each do |index|
+      line = ws[index, 1]
+      matched_words.push line if line.include? word
+    end
+
+    matched_words
+  end
 end
